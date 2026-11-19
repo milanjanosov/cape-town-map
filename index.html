@@ -271,7 +271,7 @@ map.on('click', e => {
       html = `<h3>${u?`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(p.title)}</a>`:esc(p.title)}</h3>
         <div class="meta">${esc(p.outlet||'')}${p.date?' · '+esc(String(p.date).slice(0,10)):''}${p.place?' · '+esc(p.place):''}</div>
         <div style="font-size:13px;line-height:1.45">${esc(p.summary||'')}</div>${p.topic?`<span class="tag">${esc(p.topic)}</span>`:''}
-        ${u?`<div style="margin-top:8px;font-size:12px"><a style="color:var(--accent2)" href="${esc(u)}" target="_blank" rel="noopener">Read the original article →</a></div>`:''}`;
+        ${u?`<div style="margin-top:8px;font-size:12px"><a style="color:var(--accent2)" href="${esc(u)}" target="_blank" rel="noopener">${String(p.url_is_google_redirect)==='true'?'Read the article (opens via Google News) →':'Read the original article →'}</a></div>`:''}`;
     } else if (L==='newsplaces'){
       html = `<h3>${esc(p.place||p.name||p.suburb)}</h3>${table(p,{mentions:'Articles last month',mention_count:'Articles last month',dominant_topic:'Main topic'})}`;
     } else if (L==='stops'){
