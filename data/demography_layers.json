@@ -1,0 +1,235 @@
+{
+  "lane": "demography",
+  "updated": "2026-11-19",
+  "layers": [
+    {
+      "file": "demography_density_grid500.geojson",
+      "title": "Population density (500 m grid)",
+      "geometry": "Polygon",
+      "color_by": "density_per_km2",
+      "ramp": [
+        "#1c1030",
+        "#4a1c6b",
+        "#8c2981",
+        "#d3436e",
+        "#fb8761",
+        "#fcfdbf"
+      ],
+      "breaks": [
+        500,
+        2000,
+        5000,
+        10000,
+        20000
+      ],
+      "units": "residents per km\u00b2",
+      "legend": "Residents per km\u00b2, GHSL 2020 grid rescaled to the Census 2022 city total (4,772,846)",
+      "popup": {
+        "density_per_km2": "Residents per km\u00b2",
+        "pop_2022_est": "Residents in cell (2022 est.)",
+        "area_km2": "Land area in city (km\u00b2)"
+      },
+      "source": "European Commission JRC GHS-POP R2023A, epoch 2020, 100 m (CC BY 4.0), aggregated to 500 m and scaled x1.013 to the Stats SA Census 2022 City of Cape Town total. Modelled grid, not a census count."
+    },
+    {
+      "file": "demography_wards2011_census.geojson",
+      "title": "Household income by ward (Census 2011)",
+      "geometry": "Polygon",
+      "color_by": "median_hh_income_month_2011",
+      "ramp": [
+        "#2b1b3d",
+        "#5b2a6e",
+        "#a2416f",
+        "#e07a5f",
+        "#f6c87a"
+      ],
+      "breaks": [
+        3200,
+        6400,
+        12800,
+        25600
+      ],
+      "units": "rand per month (2011 prices)",
+      "legend": "Median monthly household income, Census 2011, 2011 rand. Latest small-area income available; Census 2022 income not released.",
+      "popup": {
+        "ward_label": "Ward (2011)",
+        "areas": "Areas",
+        "households": "Households",
+        "median_hh_income_month_2011": "Median household income / month (R, 2011)",
+        "pct_low_income": "% households R3,200/month or less (incl. no income)",
+        "pct_high_income": "% households above R25,600/month",
+        "unemployment_rate": "Unemployment rate % (15-64, official definition)"
+      },
+      "denominators": {
+        "pct_low_income": "income_households (households with stated income)",
+        "pct_high_income": "income_households",
+        "unemployment_rate": "labour_force"
+      },
+      "source": "Stats SA Census 2011, via City of Cape Town 2011 ward profiles (Jan 2013); ward boundaries Stats SA 2011 (published by UCT Libraries). Stats SA copyright: free use with attribution."
+    },
+    {
+      "file": "demography_wards2011_census.geojson",
+      "title": "Informal dwellings by ward (Census 2011)",
+      "geometry": "Polygon",
+      "color_by": "pct_informal",
+      "ramp": [
+        "#1f2a36",
+        "#3d4f5f",
+        "#c58b4c",
+        "#e0662f",
+        "#ff3d2e"
+      ],
+      "breaks": [
+        2,
+        10,
+        25,
+        50
+      ],
+      "units": "% of households",
+      "legend": "Households in an informal dwelling (backyard shack or informal settlement), Census 2011",
+      "popup": {
+        "ward_label": "Ward (2011)",
+        "areas": "Areas",
+        "dwelling_total": "Households",
+        "pct_informal": "% informal dwelling",
+        "pct_informal_backyard": "% backyard shack",
+        "pct_informal_not_backyard": "% shack not in backyard (informal settlement)"
+      },
+      "denominators": {
+        "pct_informal": "dwelling_total (all households in the dwelling table)"
+      },
+      "source": "Stats SA Census 2011, via City of Cape Town 2011 ward profiles (Jan 2013); ward boundaries Stats SA 2011 (published by UCT Libraries). Stats SA copyright: free use with attribution."
+    },
+    {
+      "file": "demography_wards2011_census.geojson",
+      "title": "Population density by ward (Census 2011)",
+      "geometry": "Polygon",
+      "color_by": "density_per_km2",
+      "ramp": [
+        "#1c1030",
+        "#4a1c6b",
+        "#8c2981",
+        "#d3436e",
+        "#fb8761"
+      ],
+      "breaks": [
+        1000,
+        3000,
+        6000,
+        12000
+      ],
+      "units": "residents per km\u00b2",
+      "legend": "Residents per km\u00b2 of ward area, Census 2011 (ward area includes parks, industry, farmland)",
+      "popup": {
+        "ward_label": "Ward (2011)",
+        "population": "Population (2011)",
+        "area_km2": "Area km\u00b2",
+        "density_per_km2": "Residents per km\u00b2"
+      },
+      "source": "Stats SA Census 2011, via City of Cape Town 2011 ward profiles (Jan 2013); ward boundaries Stats SA 2011 (published by UCT Libraries). Stats SA copyright: free use with attribution."
+    },
+    {
+      "file": "demography_wards2011_census.geojson",
+      "title": "Population group by ward (Census 2011, optional)",
+      "geometry": "Polygon",
+      "color_by": null,
+      "note": "Not a colour layer. Fields pct_black_african, pct_coloured, pct_asian, pct_white, pct_other (Stats SA self-identified population-group categories, denominator popgroup_total) are included for popups only, to explain the spatial legacy of apartheid-era Group Areas. Label factually.",
+      "popup": {
+        "pct_black_african": "% Black African",
+        "pct_coloured": "% Coloured",
+        "pct_asian": "% Indian/Asian",
+        "pct_white": "% White",
+        "pct_other": "% Other"
+      },
+      "source": "Stats SA Census 2011, via City of Cape Town 2011 ward profiles (Jan 2013); ward boundaries Stats SA 2011 (published by UCT Libraries). Stats SA copyright: free use with attribution."
+    },
+    {
+      "file": "demography_suburb_valuation_gv2025.geojson",
+      "title": "Median house valuation by suburb (GV2025)",
+      "geometry": "Polygon",
+      "color_by": "median_value_gv2025",
+      "ramp": [
+        "#2b1b3d",
+        "#5b2a6e",
+        "#a2416f",
+        "#e07a5f",
+        "#f6c87a"
+      ],
+      "breaks": [
+        500000,
+        1000000,
+        2000000,
+        4000000
+      ],
+      "units": "rand",
+      "legend": "Median municipal valuation of freehold residential property, General Valuation 2025",
+      "popup": {
+        "suburb": "Suburb",
+        "median_value_gv2025": "Median value GV2025 (R)",
+        "median_value_gv2022": "Median value GV2022 (R)",
+        "change_2022_2025_pct": "Change 2022-2025 %",
+        "freehold_res_properties": "Freehold residential properties",
+        "median_erf_m2": "Median plot m\u00b2"
+      },
+      "source": "City of Cape Town Open Data Portal, 'Valuations Suburbs for 2022 and 2025' (freehold residential only) joined to 'Official Planning Suburbs'; City of Cape Town open data terms of use. Suburbs with <20 freehold properties or <20 per km\u00b2 (farms, reserves) omitted; informal areas have no value."
+    },
+    {
+      "file": "demography_wards2026_density.geojson",
+      "title": "Wards 2026 with estimated population",
+      "geometry": "Polygon",
+      "color_by": "density_2022_est_per_km2",
+      "ramp": [
+        "#1c1030",
+        "#4a1c6b",
+        "#8c2981",
+        "#d3436e",
+        "#fb8761"
+      ],
+      "breaks": [
+        1000,
+        3000,
+        6000,
+        12000
+      ],
+      "units": "residents per km\u00b2",
+      "legend": "Estimated residents per km\u00b2 on the 2026 ward boundaries (GHSL 2020 scaled to Census 2022)",
+      "popup": {
+        "ward_label": "Ward (2026)",
+        "pop_2022_est": "Estimated residents",
+        "area_km2": "Area km\u00b2",
+        "density_2022_est_per_km2": "Residents per km\u00b2"
+      },
+      "source": "City of Cape Town ODP 'Wards' (2026 delimitation); population from GHS-POP 2020 scaled to Census 2022."
+    },
+    {
+      "file": "demography_labels.geojson",
+      "title": "Neighbourhood labels",
+      "geometry": "Point",
+      "color_by": null,
+      "popup": {
+        "label": "Neighbourhood"
+      },
+      "source": "Representative points of City of Cape Town official planning suburb polygons."
+    }
+  ],
+  "checks": {
+    "wards_2011_count": 111,
+    "wards_2011_population_sum": 3740029,
+    "wards_2011_households_sum": 1068570,
+    "census2011_cpt_population_published": 3740026,
+    "census2011_cpt_households_published": 1068573,
+    "wards_2011_area_km2": 2446.0,
+    "wards_2026_count": 118,
+    "city_area_km2_from_2026_wards": 2452.2,
+    "ghsl_2020_sum_in_bbox": 5292098,
+    "ghsl_2020_sum_in_city": 4711382,
+    "census2022_cpt_population_published": 4772846,
+    "ghsl_2020_vs_census2022_ratio": 0.987,
+    "census2022_scale_factor_applied": 1.013,
+    "grid_500m_cells": 4384,
+    "grid_500m_pop_2022_est_sum": 4779722,
+    "suburbs_total": 778,
+    "suburbs_with_valuation": 657,
+    "valuation_rows_unmatched": 2
+  }
+}

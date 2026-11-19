@@ -1,0 +1,150 @@
+{
+ "lane": "crime",
+ "period": "SAPS financial year 2025/26 (1 April 2025 - 31 March 2026)",
+ "metro_totals": {
+  "murders": 3641,
+  "population": 4977665,
+  "murder_rate_100k": 73.1,
+  "res_burglary_rate_100k": 205.1,
+  "vehicle_crime_rate_100k": 347.7
+ },
+ "layers": [
+  {
+   "file": "crime_precincts.geojson",
+   "title": "Murder rate by police precinct",
+   "geometry_type": "Polygon",
+   "colour_by": "murder_rate_100k",
+   "colour_ramp": [
+    "#fee5d9",
+    "#fcae91",
+    "#fb6a4a",
+    "#de2d26",
+    "#a50f15"
+   ],
+   "class_breaks": [
+    0,
+    10,
+    25,
+    50,
+    100
+   ],
+   "no_data_colour": "#d9d9d9",
+   "units": "reported cases per 100,000 residents per year",
+   "legend": "Murders per 100,000 residents, Apr 2025 - Mar 2026. Metro average 73.",
+   "hatch_where": {
+    "reliable": false,
+    "meaning": "rate unreliable: small or commuter population (see rate_flag)"
+   },
+   "popup_fields": {
+    "name": "Precinct",
+    "population": "Residents (2024 est.)",
+    "murder": "Murders (12 months)",
+    "murder_rate_100k_label": "Per 100,000",
+    "rate_flag": "Note"
+   },
+   "source": "Counts: SAPS quarterly crime statistics 2025/26, four quarters summed (1 Apr 2025 - 31 Mar 2026), saps.gov.za. Population: GeoTerraImage 2024 EA estimates summed by precinct, published by Western Cape Government PDO (licence: view only, flagged). Open alternative: GHS-POP R2023A 2025, 100 m, JRC, CC BY 4.0 (fields *_ghsl). Precincts: Western Cape Government Spatial Data Warehouse (2020); Makhaza rebuilt from the PDO 2024 EA assignment."
+  },
+  {
+   "file": "crime_precincts.geojson",
+   "title": "Residential burglary rate by police precinct",
+   "geometry_type": "Polygon",
+   "colour_by": "res_burglary_rate_100k",
+   "colour_ramp": [
+    "#eff3ff",
+    "#bdd7e7",
+    "#6baed6",
+    "#3182bd",
+    "#08519c"
+   ],
+   "class_breaks": [
+    0,
+    150,
+    250,
+    350,
+    450
+   ],
+   "no_data_colour": "#d9d9d9",
+   "units": "reported cases per 100,000 residents per year",
+   "legend": "Reported residential burglaries per 100,000 residents, Apr 2025 - Mar 2026. Metro average 205. Higher reporting where insurance requires a case number.",
+   "hatch_where": {
+    "reliable": false,
+    "meaning": "rate unreliable: small or commuter population (see rate_flag)"
+   },
+   "popup_fields": {
+    "name": "Precinct",
+    "population": "Residents (2024 est.)",
+    "res_burglary": "Residential burglaries (12 months)",
+    "res_burglary_rate_100k_label": "Per 100,000",
+    "rate_flag": "Note"
+   },
+   "source": "Counts: SAPS quarterly crime statistics 2025/26, four quarters summed (1 Apr 2025 - 31 Mar 2026), saps.gov.za. Population: GeoTerraImage 2024 EA estimates summed by precinct, published by Western Cape Government PDO (licence: view only, flagged). Open alternative: GHS-POP R2023A 2025, 100 m, JRC, CC BY 4.0 (fields *_ghsl). Precincts: Western Cape Government Spatial Data Warehouse (2020); Makhaza rebuilt from the PDO 2024 EA assignment."
+  },
+  {
+   "file": "crime_precincts.geojson",
+   "title": "Vehicle crime rate by police precinct",
+   "geometry_type": "Polygon",
+   "colour_by": "vehicle_crime_rate_100k",
+   "colour_ramp": [
+    "#f2f0f7",
+    "#cbc9e2",
+    "#9e9ac8",
+    "#756bb1",
+    "#54278f"
+   ],
+   "class_breaks": [
+    0,
+    150,
+    300,
+    600,
+    1200
+   ],
+   "no_data_colour": "#d9d9d9",
+   "units": "reported cases per 100,000 residents per year",
+   "legend": "Theft of and from motor vehicles per 100,000 residents, Apr 2025 - Mar 2026. Metro average 348. Commuter, shopping and nightlife precincts score high because the cars are not residents'.",
+   "hatch_where": {
+    "reliable": false,
+    "meaning": "rate unreliable: small or commuter population (see rate_flag)"
+   },
+   "popup_fields": {
+    "name": "Precinct",
+    "population": "Residents (2024 est.)",
+    "vehicle_crime": "Vehicle thefts + thefts from vehicles",
+    "vehicle_crime_rate_100k_label": "Per 100,000",
+    "rate_flag": "Note"
+   },
+   "source": "Counts: SAPS quarterly crime statistics 2025/26, four quarters summed (1 Apr 2025 - 31 Mar 2026), saps.gov.za. Population: GeoTerraImage 2024 EA estimates summed by precinct, published by Western Cape Government PDO (licence: view only, flagged). Open alternative: GHS-POP R2023A 2025, 100 m, JRC, CC BY 4.0 (fields *_ghsl). Precincts: Western Cape Government Spatial Data Warehouse (2020); Makhaza rebuilt from the PDO 2024 EA assignment."
+  },
+  {
+   "file": "crime_police_stations.geojson",
+   "title": "SAPS police stations",
+   "geometry_type": "Point",
+   "colour_by": null,
+   "colour_ramp": [
+    "#1f2d3d"
+   ],
+   "class_breaks": null,
+   "units": null,
+   "legend": "SAPS police station (Makhaza station point not in source layer)",
+   "popup_fields": {
+    "name": "Station"
+   },
+   "source": "Western Cape Government Spatial Data Warehouse, SAPS_PoliceStations layer 0."
+  },
+  {
+   "file": "crime_neighbourhood_labels.geojson",
+   "title": "Neighbourhood labels (crime lane)",
+   "geometry_type": "Point",
+   "colour_by": null,
+   "colour_ramp": [
+    "#000000"
+   ],
+   "class_breaks": null,
+   "units": null,
+   "legend": "Reference places",
+   "popup_fields": {
+    "name": "Place"
+   },
+   "source": "OpenStreetMap Nominatim place coordinates (ODbL); osm field gives the object."
+  }
+ ]
+}

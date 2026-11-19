@@ -1,0 +1,114 @@
+[
+ {
+  "name": "Sea Point",
+  "lon": 18.3922222,
+  "lat": -33.9172222,
+  "osm": "relation/2034686",
+  "osm_class": "place/suburb",
+  "display": "Sea Point, Cape Town, City of Cape Town, Western Cape, South Africa"
+ },
+ {
+  "name": "Camps Bay",
+  "lon": 18.3818524,
+  "lat": -33.9547736,
+  "osm": "relation/2034681",
+  "osm_class": "place/suburb",
+  "display": "Camps Bay, Cape Town Ward 54, Cape Town, City of Cape Town, Western Cape, South Africa"
+ },
+ {
+  "name": "Constantia",
+  "lon": 18.4155556,
+  "lat": -34.0283333,
+  "osm": "relation/2035209",
+  "osm_class": "place/suburb",
+  "display": "Constantia, Cape Town, City of Cape Town, Western Cape, 7806, South Africa"
+ },
+ {
+  "name": "Claremont",
+  "lon": 18.4625,
+  "lat": -33.9847222,
+  "osm": "relation/2035086",
+  "osm_class": "place/suburb",
+  "display": "Claremont, Cape Town, City of Cape Town, Western Cape, 7708, South Africa"
+ },
+ {
+  "name": "Observatory",
+  "lon": 18.4683333,
+  "lat": -33.9369444,
+  "osm": "relation/2034283",
+  "osm_class": "place/suburb",
+  "display": "Observatory, Cape Town, City of Cape Town, Western Cape, South Africa"
+ },
+ {
+  "name": "Khayelitsha",
+  "lon": 18.6674201,
+  "lat": -34.0405905,
+  "osm": "node/262720812",
+  "osm_class": "place/town",
+  "display": "Khayelitsha, City of Cape Town, Western Cape, 7783, South Africa"
+ },
+ {
+  "name": "Mitchells Plain",
+  "lon": 18.618056,
+  "lat": -34.050556,
+  "osm": "node/262721397",
+  "osm_class": "place/town",
+  "display": "Mitchells Plain, City of Cape Town, Western Cape, 7786, South Africa"
+ },
+ {
+  "name": "Durbanville",
+  "lon": 18.6494444,
+  "lat": -33.8402778,
+  "osm": "way/688405208",
+  "osm_class": "place/town",
+  "display": "Durbanville, City of Cape Town, Western Cape, 7550, South Africa"
+ },
+ {
+  "name": "Muizenberg",
+  "lon": 18.4845708,
+  "lat": -34.0978389,
+  "osm": "relation/2051261",
+  "osm_class": "place/suburb",
+  "display": "Muizenberg, City of Cape Town, Western Cape, South Africa"
+ },
+ {
+  "name": "Bellville",
+  "lon": 18.6368702,
+  "lat": -33.8837334,
+  "osm": "way/688943288",
+  "osm_class": "place/town",
+  "display": "Bellville, City of Cape Town, Western Cape, South Africa"
+ },
+ {
+  "name": "Table View",
+  "lon": 18.4902778,
+  "lat": -33.8236111,
+  "osm": "relation/2036170",
+  "osm_class": "place/suburb",
+  "display": "Table View, Cape Town, City of Cape Town, Western Cape, 7439, South Africa"
+ },
+ {
+  "name": "Gugulethu",
+  "lon": 18.5683333,
+  "lat": -33.9822222,
+  "osm": "node/262720460",
+  "osm_class": "place/suburb",
+  "display": "Guguletu, Cape Town Ward 41, City of Cape Town"
+ },
+ {
+  "name": "Hout Bay",
+  "lon": 18.355645,
+  "lat": -34.043093,
+  "osm": "node/262720634",
+  "osm_class": "place/town",
+  "display": "Hout Bay, City of Cape Town, Western Cape, 7872, South Africa"
+ },
+ {
+  "name": "City Centre",
+  "lon": 18.420056,
+  "lat": -33.924389,
+  "osm": "relation/2034619",
+  "osm_class": "place/suburb",
+  "display": "City Centre, Cape Town"
+ }
+]

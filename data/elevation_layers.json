@@ -1,0 +1,107 @@
+{
+  "lane": "elevation",
+  "source": "Copernicus DEM GLO-30 (2021 release, DSM, 1 arcsec) via AWS Open Data s3://copernicus-dem-30m; (c) DLR e.V. 2010-2014 and (c) Airbus Defence and Space GmbH 2014-2018, provided under COPERNICUS by the European Union and ESA; free licence with attribution. Labels and boundary (c) OpenStreetMap contributors, ODbL.",
+  "layers": [
+    {
+      "file": "elevation_hillshade.png",
+      "title": "Terrain relief",
+      "geometry_type": "raster image",
+      "bounds": [
+        18.28,
+        -34.38,
+        19.06,
+        -33.44
+      ],
+      "image_crs": "EPSG:3857 grid (use as MapLibre image source with these corners)",
+      "maplibre_coordinates": [
+        [
+          18.28,
+          -33.44
+        ],
+        [
+          19.06,
+          -33.44
+        ],
+        [
+          19.06,
+          -34.38
+        ],
+        [
+          18.28,
+          -34.38
+        ]
+      ],
+      "suggested_opacity": 0.85,
+      "units": "m",
+      "sea": "transparent (DEM = 0)",
+      "colour_ramp": {
+        "0": "#ccdbb7",
+        "40": "#bcd1a3",
+        "150": "#dbd6a8",
+        "400": "#ccb28c",
+        "800": "#b29e8c",
+        "1100": "#d8d3d1",
+        "1600": "#f7f7f7"
+      },
+      "legend_text": "Height above sea level, shaded from the north-west. Green = Cape Flats lowland, brown/grey = mountain."
+    },
+    {
+      "file": "elevation_terrain/{z}/{x}/{y}.png",
+      "title": "3D terrain",
+      "geometry_type": "raster-dem tiles",
+      "encoding": "mapbox",
+      "tileSize": 256,
+      "minzoom": 8,
+      "maxzoom": 12,
+      "bounds": [
+        18.28,
+        -34.38,
+        19.06,
+        -33.44
+      ],
+      "suggested_exaggeration": 1.5,
+      "units": "m",
+      "note": "height = -10000 + (R*65536 + G*256 + B) * 0.1; sea set to 0 m. Outside bounds: no tiles."
+    },
+    {
+      "file": "elevation_labels.geojson",
+      "title": "Peaks and neighbourhoods",
+      "geometry_type": "Point",
+      "colour_by": "kind",
+      "categories": {
+        "peak": "#7a3b1d",
+        "place": "#222222",
+        "landmark": "#1f5f8b"
+      },
+      "label_field": "label",
+      "popup_fields": {
+        "name": "Name",
+        "kind": "Type",
+        "height_m": "Published height (m)",
+        "height_m_dem": "Height in the 30 m DEM (m)",
+        "osm_ref": "OSM object"
+      },
+      "legend_text": "Peak labels carry published summit heights; the 30 m DEM reads sharp summits low (Lion's Head 600 m vs 669 m published)."
+    },
+    {
+      "file": "elevation_boundary.geojson",
+      "title": "City of Cape Town metro boundary",
+      "geometry_type": "MultiPolygon",
+      "colour_by": null,
+      "style": {
+        "line": "#333333",
+        "width": 1.5,
+        "dash": [
+          3,
+          2
+        ],
+        "fill": "none"
+      },
+      "popup_fields": {
+        "name": "Name",
+        "area_km2": "Area (km2, mainland + Robben Island)"
+      },
+      "note": "OSM relation 79604; the Prince Edward Islands (sub-Antarctic, also in the relation) removed."
+    }
+  ]
+}

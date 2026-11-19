@@ -1,0 +1,92 @@
+{
+ "lane": "news",
+ "files": [
+  {
+   "file": "news_articles.geojson",
+   "title": "In the news: one pin per article",
+   "geometry_type": "Point",
+   "color_by": "topic",
+   "categories": {
+    "crime": "#c0392b",
+    "transport": "#2e86c1",
+    "housing": "#8e6c3a",
+    "tourism/events": "#27ae60",
+    "weather/fire": "#e67e22",
+    "politics": "#7d3c98",
+    "business": "#566573",
+    "other": "#d5d8dc"
+   },
+   "units": "article",
+   "legend_text": "Each pin is one news article (19 Oct - 19 Nov 2026) whose headline names a Cape Town suburb, placed at that suburb's OSM point and spread 80-150 m so pins do not stack. Colour = topic from a headline keyword rule.",
+   "popup_fields": {
+    "title": "Headline (link it to url)",
+    "outlet_date": "Outlet, date",
+    "summary": "Summary",
+    "topic": "Topic"
+   },
+   "link_field": "url",
+   "notes": "summary is 1-2 sentences written from the headline only (summary_basis='headline') or headline plus the outlet's RSS description ('headline+snippet'); it adds nothing beyond those. url is the publisher URL where we had one (outlet RSS or GDELT); url_is_google_redirect=true marks Google News links, which open the article in a browser via Google's redirect. An article naming two suburbs has two pins.",
+   "source": "GDELT DOC 2.0 API, Google News RSS search, outlet RSS feeds; places from OpenStreetMap place=suburb/neighbourhood/etc. within the City of Cape Town (ODbL).",
+   "licence": "Headlines are quoted as titles with links only; place points (c) OpenStreetMap contributors, ODbL.",
+   "vintage": "News 19 Oct - 19 Nov 2026, collected 19 Nov 2026; OSM extract at collection time.",
+   "caveats": "Headline-only matching; news over-represents crime, the CBD and the Atlantic seaboard; Google News search coverage thins for older dates."
+  },
+  {
+   "file": "news_mentions.geojson",
+   "title": "In the news: places named in headlines",
+   "geometry_type": "Point",
+   "color_by": "mentions",
+   "size_by": "mentions",
+   "color_ramp": [
+    "#fde0c5",
+    "#facba6",
+    "#f59e72",
+    "#eb7f5a",
+    "#d14d4d",
+    "#8e1f3d"
+   ],
+   "class_breaks": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32
+   ],
+   "units": "headlines",
+   "legend_text": "Number of unique news headlines (19 Oct - 19 Nov 2026) that name the suburb. Generic 'Cape Town' mentions are not counted.",
+   "alt_color_by": {
+    "property": "dominant_topic",
+    "categories": {
+     "crime": "#c0392b",
+     "transport": "#2e86c1",
+     "housing": "#8e6c3a",
+     "tourism/events": "#27ae60",
+     "weather/fire": "#e67e22",
+     "politics": "#7d3c98",
+     "business": "#566573",
+     "other": "#d5d8dc"
+    }
+   },
+   "popup_fields": {
+    "place": "Place",
+    "mentions": "Headlines naming it",
+    "dominant_topic_label": "Most common topic",
+    "topic_crime": "Crime",
+    "topic_transport": "Transport",
+    "topic_housing": "Housing",
+    "topic_tourism_events": "Tourism / events",
+    "topic_weather_fire": "Weather / fire",
+    "topic_politics": "Politics",
+    "topic_business": "Business",
+    "topic_other": "Other",
+    "headlines": "Recent headlines (array of {title, outlet, date, url})"
+   },
+   "headlines_property_note": "headlines is an array of up to 5 most recent {title, outlet, date, url}; titles only, no article text.",
+   "source": "GDELT DOC 2.0 API, Google News RSS search, outlet RSS feeds; places from OpenStreetMap place=suburb/neighbourhood/etc. within the City of Cape Town (ODbL).",
+   "licence": "Headlines are quoted as titles with links only; place points (c) OpenStreetMap contributors, ODbL.",
+   "vintage": "News 19 Oct - 19 Nov 2026, collected 19 Nov 2026; OSM extract at collection time.",
+   "caveats": "Headline-only matching; news over-represents crime, the CBD and the Atlantic seaboard; Google News search coverage thins for older dates."
+  }
+ ]
+}

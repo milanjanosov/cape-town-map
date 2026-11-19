@@ -1,0 +1,295 @@
+<meta charset="utf-8">
+<title>Cape Town Field Guide</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=DM+Serif+Display&display=swap">
+<style>/*MLCSS*/</style>
+<style>
+:root{
+  --bg:#0d1418; --panel:#121c21; --panel2:#18252c; --line:#24353e; --fg:#e8eae4; --dim:#93a3a8;
+  --accent:#f2a65a; --accent2:#5fc2b8; color-scheme:dark;
+}
+html,body{height:100%}
+body{background:var(--bg);color:var(--fg);font-family:"DM Sans",system-ui,-apple-system,sans-serif;margin:0;overflow:hidden}
+#map{position:fixed;inset:0}
+#panel{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:max(12px,env(safe-area-inset-left,0px));bottom:12px;width:330px;
+  background:color-mix(in srgb,var(--panel) 94%,transparent);border:1px solid var(--line);border-radius:14px;display:flex;flex-direction:column;z-index:5;
+  box-shadow:0 10px 40px rgba(0,0,0,.45)}
+#panel header{padding:18px 18px 10px;border-bottom:1px solid var(--line)}
+h1{font-family:"DM Serif Display",Georgia,serif;font-weight:400;font-size:28px;line-height:1.05;margin:0;text-wrap:balance}
+.sub{color:var(--dim);font-size:13px;margin-top:6px;line-height:1.4}
+#scroll{overflow:auto;padding:6px 18px 18px;flex:1;min-height:0}
+h2{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:18px 0 8px;font-weight:700}
+.opt{display:flex;align-items:flex-start;gap:9px;padding:6px 8px;border-radius:8px;cursor:pointer;font-size:14px;line-height:1.3}
+.opt:hover{background:var(--panel2)}
+.opt input{margin:2px 0 0;accent-color:var(--accent)}
+.opt small{display:block;color:var(--dim);font-size:11.5px}
+.sw{width:14px;height:4px;border-radius:2px;display:inline-block;margin-right:6px;vertical-align:middle}
+#legend{margin-top:10px;background:var(--panel2);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--dim);line-height:1.4}
+#legend[hidden]{display:none}
+.ramp{display:flex;margin:8px 0 3px;height:10px;border-radius:3px;overflow:hidden}
+.ramp span{flex:1}
+.ticks{display:flex;justify-content:space-between;font-size:10.5px;color:var(--dim)}
+.src{font-size:10.5px;color:#6f8085;margin-top:6px}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+button.pill{background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font:inherit;font-size:13px;cursor:pointer}
+button.pill[aria-pressed=true]{background:var(--accent);color:#1b1206;border-color:var(--accent)}
+.foot{font-size:11px;color:#6f8085;line-height:1.45;margin-top:16px}
+.maplibregl-popup-content{background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-family:"DM Sans",system-ui,sans-serif;max-width:300px;box-shadow:0 8px 30px rgba(0,0,0,.5)}
+.maplibregl-popup-tip{border-top-color:var(--panel)!important;border-bottom-color:var(--panel)!important}
+.maplibregl-popup-close-button{color:var(--dim);font-size:18px;right:4px;top:2px}
+.pp h3{margin:0 0 6px;font-size:15px;line-height:1.25}
+.pp h3 a{color:var(--accent);text-decoration:none}.pp h3 a:hover{text-decoration:underline}
+.pp .meta{font-size:11.5px;color:var(--dim);margin-bottom:6px}
+.pp table{border-collapse:collapse;font-size:12.5px;width:100%}
+.pp td{padding:2px 0;vertical-align:top}.pp td:last-child{text-align:right;padding-left:10px;font-variant-numeric:tabular-nums}
+.pp .note{font-size:11.5px;color:var(--accent);margin-top:6px}
+.tag{display:inline-block;font-size:10.5px;padding:1px 7px;border-radius:999px;background:var(--panel2);color:var(--accent2);margin-top:6px}
+#toggle{display:none}
+.lbl{display:flex;flex-direction:column;align-items:center;pointer-events:none;font-size:12.5px;font-weight:500;color:#fff;text-shadow:0 0 3px #0d1418,0 0 6px #0d1418,0 1px 2px #000;white-space:nowrap}
+.lbl i{width:6px;height:6px;border-radius:50%;background:#fff;border:1px solid #0d1418;margin-bottom:2px}
+.lbl.peak{color:#ffd9a8;font-size:11.5px}.lbl.peak i{background:#ffd9a8;border-radius:0;transform:rotate(45deg);width:6px;height:6px}
+.zfar .lbl.peak,.zfar .lbl.minor{display:none!important}
+.lbl.landmark{color:#bfe6ff}.lbl.landmark i{background:#bfe6ff}
+.maplibregl-ctrl-attrib{background:rgba(13,20,24,.7)!important;color:var(--dim)}
+.maplibregl-ctrl-attrib a{color:var(--dim)}
+@media (max-width:700px){
+  #panel{top:auto;left:0;right:0;bottom:0;width:auto;border-radius:16px 16px 0 0;max-height:58vh;
+    padding-bottom:env(safe-area-inset-bottom,0px);padding-left:max(0px,env(safe-area-inset-left,0px));padding-right:max(0px,env(safe-area-inset-right,0px))}
+  #panel.closed #scroll{display:none}
+  #toggle{display:block;position:absolute;right:14px;top:14px}
+  h1{font-size:22px;padding-right:80px}
+}
+</style>
+
+<div id="map"></div>
+<aside id="panel">
+  <header>
+    <h1>Cape Town, before you move</h1>
+    <div class="sub">Terrain, money, safety, transport and last month's news on one map. Click any area or pin for the numbers.</div>
+    <button class="pill" id="toggle" aria-expanded="true">Layers</button>
+  </header>
+  <div id="scroll">
+    <h2>Colour the city by</h2>
+    <div id="themes"></div>
+    <div id="legend" hidden></div>
+    <h2>On top</h2>
+    <div id="overlays"></div>
+    <h2>View</h2>
+    <div class="row">
+      <button class="pill" id="b3d" aria-pressed="true">3D terrain</button>
+      <button class="pill" id="bflat" aria-pressed="false">Flat</button>
+      <button class="pill" id="bhome">Whole city</button>
+    </div>
+    <div class="foot" id="foot"></div>
+  </div>
+</aside>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.js"></script>
+<script>
+const D = n => new URL('data/' + n, location.href).href;
+const fmt = v => v == null || v === '' || (typeof v === 'number' && isNaN(v)) ? '–' :
+  typeof v === 'number' ? (Math.abs(v) >= 1000 ? Math.round(v).toLocaleString('en-ZA') : (Number.isInteger(v) ? v : v.toFixed(1))) : String(v);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+const THEMES = [
+  {id:'none', label:'Nothing (terrain only)'},
+  {id:'density', label:'Population density', note:'500 m grid, 2022 estimate', src:'demography_density_grid500.geojson', field:'density_per_km2',
+   breaks:[500,2000,5000,10000,20000], ramp:['#1c1030','#4a1c6b','#8c2981','#d3436e','#fb8761','#fcfdbf'], unit:'residents per km²',
+   legend:'Residents per km². GHSL 2020 grid scaled to the Census 2022 city total (4.77 million).',
+   credit:'EC JRC GHS-POP R2023A (CC BY 4.0), Stats SA Census 2022',
+   popup:{title:()=> 'Population', rows:{density_per_km2:'Residents per km²', pop_2022_est:'Residents in this cell'}}},
+  {id:'income', label:'Household income', note:'by ward, Census 2011', src:'demography_wards2011_census.geojson', field:'median_hh_income_month_2011',
+   breaks:[3200,6400,12800,25600], ramp:['#2b1b3d','#5b2a6e','#a2416f','#e07a5f','#f6c87a'], unit:'R / month (2011 rand)',
+   legend:'Median monthly household income in 2011 rand. Census 2022 has not released small-area income, so 2011 is the latest.',
+   credit:'Stats SA Census 2011 via City of Cape Town ward profiles',
+   popup:{title:p=>p.ward_label, rows:{areas:'Areas', households:'Households', median_hh_income_month_2011:'Median income / month (R, 2011)', pct_low_income:'% earning ≤ R3,200 / month', pct_high_income:'% earning > R25,600 / month', unemployment_rate:'Unemployment %'}}},
+  {id:'value', label:'House prices', note:'median valuation by suburb, 2025', src:'demography_suburb_valuation_gv2025.geojson', field:'median_value_gv2025',
+   breaks:[500000,1000000,2000000,4000000], ramp:['#2b1b3d','#5b2a6e','#a2416f','#e07a5f','#f6c87a'], unit:'rand', tickfmt:v=>'R'+(v>=1e6? (v/1e6)+'m' : (v/1e3)+'k'),
+   legend:'Median municipal valuation of freehold houses (General Valuation 2025). Flats, farms and informal areas are not included.',
+   credit:'City of Cape Town General Valuation 2025',
+   popup:{title:p=>p.suburb, rows:{median_value_gv2025:'Median value 2025 (R)', median_value_gv2022:'Median value 2022 (R)', change_2022_2025_pct:'Change since 2022 %', freehold_res_properties:'Freehold houses', median_erf_m2:'Median plot m²'}}},
+  {id:'informal', label:'Informal housing', note:'share of households in shacks, 2011', src:'demography_wards2011_census.geojson', field:'pct_informal',
+   breaks:[2,10,25,50], ramp:['#1f2a36','#3d4f5f','#c58b4c','#e0662f','#ff3d2e'], unit:'% of households', tickfmt:v=>v+'%',
+   legend:'Households in a backyard shack or informal settlement, Census 2011. City-wide that was 20.5%.',
+   credit:'Stats SA Census 2011 via City of Cape Town ward profiles',
+   popup:{title:p=>p.ward_label, rows:{areas:'Areas', dwelling_total:'Households', pct_informal:'% informal', pct_informal_backyard:'% backyard shack', pct_informal_not_backyard:'% informal settlement'}}},
+  {id:'murder', label:'Murder rate', note:'per police precinct, Apr 2025 – Mar 2026', src:'crime_precincts.geojson', field:'murder_rate_100k',
+   breaks:[10,25,50,100], ramp:['#fee5d9','#fcae91','#fb6a4a','#de2d26','#a50f15'], unit:'per 100,000 residents',
+   legend:'Murders per 100,000 residents in the 12 months to March 2026. Metro average 73. Hatched: rate unreliable (few or commuting residents).',
+   credit:'SAPS crime statistics 2025/26; population: GeoTerraImage 2024 via Western Cape Government',
+   popup:{title:p=>p.name+' precinct', rows:{population:'Residents (2024 est.)', murder:'Murders (12 months)', murder_rate_100k:'Per 100,000'}, note:'rate_flag'}},
+  {id:'burglary', label:'House burglary', note:'per police precinct', src:'crime_precincts.geojson', field:'res_burglary_rate_100k',
+   breaks:[150,250,350,450], ramp:['#eff3ff','#bdd7e7','#6baed6','#3182bd','#08519c'], unit:'per 100,000 residents',
+   legend:'Reported residential burglaries per 100,000 residents. Metro average 205. Reporting is higher where insurers need a case number.',
+   credit:'SAPS crime statistics 2025/26',
+   popup:{title:p=>p.name+' precinct', rows:{population:'Residents (2024 est.)', res_burglary:'Burglaries (12 months)', res_burglary_rate_100k:'Per 100,000', res_robbery:'Home robberies'}, note:'rate_flag'}},
+  {id:'vehicle', label:'Car crime', note:'thefts of and from vehicles', src:'crime_precincts.geojson', field:'vehicle_crime_rate_100k',
+   breaks:[150,300,600,1200], ramp:['#f2f0f7','#cbc9e2','#9e9ac8','#756bb1','#54278f'], unit:'per 100,000 residents',
+   legend:'Theft of and from vehicles per 100,000 residents. Metro average 348. Commuter and nightlife precincts score high because the cars are not residents’.',
+   credit:'SAPS crime statistics 2025/26',
+   popup:{title:p=>p.name+' precinct', rows:{population:'Residents (2024 est.)', vehicle_theft:'Cars stolen', theft_from_vehicle:'Thefts from cars', carjacking:'Carjackings', vehicle_crime_rate_100k:'Car crime per 100,000'}, note:'rate_flag'}},
+];
+
+const MODES = [
+  {id:'rail', label:'Metrorail trains', colour:'#E4572E'},
+  {id:'brt', label:'MyCiTi rapid bus (BRT)', colour:'#2E86DE'},
+  {id:'bus', label:'MyCiTi feeder buses', colour:'#8FD3FE'},
+  {id:'taxi', label:'Minibus taxi routes', colour:'#F6C945', note:'no timetable; mapped corridors'},
+];
+const OVERLAYS = [
+  {id:'news', label:'News pins, last month', colour:'#ff5d8f', note:'click a pin for the story', on:true},
+  {id:'newsplaces', label:'News: most-mentioned suburbs', colour:'#ff5d8f'},
+  ...MODES.map(m=>({...m, id:'tr_'+m.id, mode:m.id, on: m.id!=='taxi'})),
+  {id:'stops', label:'Train and MyCiTi stops', colour:'#ffffff', note:'sized by weekday departures'},
+  {id:'police', label:'Police stations', colour:'#9fb3ff'},
+  {id:'labels', label:'Place names and peaks', colour:'#e8eae4', on:true},
+];
+
+const LABELS=[];
+const map = new maplibregl.Map({
+  container:'map', attributionControl:false,
+  style:{version:8, sources:{}, layers:[{id:'bg',type:'background',paint:{'background-color':'#0b2230'}}]},
+  center:[18.52,-33.97], zoom:10.1, pitch:50, bearing:-15, maxPitch:75,
+  maxBounds:[[17.9,-34.7],[19.4,-33.1]]
+});
+if (!matchMedia('(max-width:700px)').matches) map.setPadding({left:350,top:0,right:0,bottom:0});
+map.addControl(new maplibregl.NavigationControl({visualizePitch:true}),'top-right');
+map.addControl(new maplibregl.AttributionControl({compact:true, customAttribution:'Terrain: Copernicus DEM GLO-30 (ESA/EU, DLR, Airbus) · © OpenStreetMap contributors · SAPS · Stats SA · City of Cape Town · JRC GHSL'}),'bottom-right');
+
+const stepColour = t => {
+  const e = ['step',['to-number',['get',t.field]], t.ramp[0]];
+  t.breaks.forEach((b,i)=>e.push(b, t.ramp[i+1]));
+  return ['case',['==',['typeof',['get',t.field]],'number'], e, '#3a4449'];
+};
+
+function hatch(){
+  const s=12, c=document.createElement('canvas'); c.width=c.height=s; const x=c.getContext('2d');
+  x.strokeStyle='rgba(20,20,20,.75)'; x.lineWidth=1.6; x.beginPath(); x.moveTo(0,s); x.lineTo(s,0); x.moveTo(-s/2,s/2); x.lineTo(s/2,-s/2); x.moveTo(s/2,s*1.5); x.lineTo(s*1.5,s/2); x.stroke();
+  return x.getImageData(0,0,s,s);
+}
+
+map.on('load', async () => {
+  map.addImage('hatch', hatch());
+  map.addSource('dem', {type:'raster-dem', tiles:[D('elevation_terrain/{z}/{x}/{y}.png')], tileSize:256, encoding:'mapbox', minzoom:8, maxzoom:12, bounds:[18.28,-34.38,19.06,-33.44]});
+  map.setTerrain({source:'dem', exaggeration:1.5});
+  map.addSource('relief', {type:'image', url:D('elevation_hillshade.png'), coordinates:[[18.28,-33.44],[19.06,-33.44],[19.06,-34.38],[18.28,-34.38]]});
+  map.addLayer({id:'relief', type:'raster', source:'relief', paint:{'raster-opacity':0.95,'raster-saturation':-0.25,'raster-brightness-max':0.9}});
+  map.addLayer({id:'shade', type:'hillshade', source:'dem', paint:{'hillshade-exaggeration':0.35,'hillshade-shadow-color':'#0b1418'}});
+
+  const files = [...new Set(THEMES.filter(t=>t.src).map(t=>t.src))];
+  files.forEach(f=>map.addSource(f, {type:'geojson', data:D(f)}));
+  THEMES.filter(t=>t.src).forEach(t=>{
+    map.addLayer({id:'th_'+t.id, type:'fill', source:t.src, layout:{visibility:'none'}, paint:{'fill-color':stepColour(t),'fill-opacity':0.72}});
+    map.addLayer({id:'thl_'+t.id, type:'line', source:t.src, layout:{visibility:'none'}, paint:{'line-color':'rgba(10,15,18,.55)','line-width':t.id==='density'?0:0.6}});
+    if (t.src==='crime_precincts.geojson')
+      map.addLayer({id:'thh_'+t.id, type:'fill', source:t.src, filter:['==',['get','reliable'],false], layout:{visibility:'none'}, paint:{'fill-pattern':'hatch','fill-opacity':0.8}});
+  });
+
+  map.addSource('boundary',{type:'geojson',data:D('elevation_boundary.geojson')});
+  map.addLayer({id:'boundary',type:'line',source:'boundary',paint:{'line-color':'#e8eae4','line-width':1.2,'line-dasharray':[3,2],'line-opacity':.6}});
+
+  map.addSource('routes',{type:'geojson',data:D('transit_routes.geojson')});
+  MODES.forEach(m=>map.addLayer({id:'tr_'+m.id,type:'line',source:'routes',filter:['==',['get','mode'],m.id],layout:{'line-cap':'round','line-join':'round'},
+    paint:{'line-color':m.colour,'line-width':m.id==='taxi'?['interpolate',['linear'],['zoom'],9,0.6,14,2]:m.id==='bus'?['interpolate',['linear'],['zoom'],9,1,14,2.5]:['interpolate',['linear'],['zoom'],9,2,14,5],'line-opacity':m.id==='taxi'?0.55:0.95}}));
+  map.addSource('stops',{type:'geojson',data:D('transit_stops.geojson')});
+  map.addLayer({id:'stops',type:'circle',source:'stops',paint:{
+    'circle-radius':['interpolate',['linear'],['sqrt',['max',0,['get','weekday_departures']]],0,2,36,9],
+    'circle-color':['match',['get','mode'],'rail','#E4572E','brt','#2E86DE','#8FD3FE'],'circle-stroke-color':'#0d1418','circle-stroke-width':1,'circle-opacity':.9}});
+
+  map.addSource('police',{type:'geojson',data:D('crime_police_stations.geojson')});
+  map.addLayer({id:'police',type:'circle',source:'police',paint:{'circle-radius':4,'circle-color':'#9fb3ff','circle-stroke-color':'#0d1418','circle-stroke-width':1.2}});
+
+  // news (optional files)
+  for (const [id,f] of [['newsplaces','news_mentions.geojson'],['news','news_articles.geojson']]) {
+    try { const r = await fetch(D(f)); if(!r.ok) throw 0; const g = await r.json(); map.addSource(id,{type:'geojson',data:g}); } catch(e){ map.addSource(id,{type:'geojson',data:{type:'FeatureCollection',features:[]}}); }
+  }
+  map.addLayer({id:'newsplaces',type:'circle',source:'newsplaces',paint:{'circle-radius':['interpolate',['linear'],['sqrt',['coalesce',['get','mentions'],['get','mention_count'],1]],1,5,10,26],'circle-color':'rgba(255,93,143,.28)','circle-stroke-color':'#ff5d8f','circle-stroke-width':1.2}});
+  map.addLayer({id:'news',type:'circle',source:'news',paint:{'circle-radius':['interpolate',['linear'],['zoom'],9,4,14,7],'circle-color':'#ff5d8f','circle-stroke-color':'#fff','circle-stroke-width':1.3}});
+
+  map.addSource('labels',{type:'geojson',data:D('elevation_labels.geojson')});
+  // labels as DOM markers (no glyph server needed)
+  const lg = await (await fetch(D('elevation_labels.geojson'))).json();
+  lg.features.forEach(f=>{
+    const p=f.properties, el=document.createElement('div');
+    el.className='lbl '+p.kind+(['Woodstock','Observatory','Camps Bay','Signal Hill','Sea Point','Hout Bay'].includes(p.name)?' minor':''); el.innerHTML='<i></i><span>'+esc(p.label)+'</span>';
+    el.title = p.height_m ? p.name+' '+p.height_m+' m' : p.name;
+    LABELS.push(new maplibregl.Marker({element:el, anchor:'top'}).setLngLat(f.geometry.coordinates).addTo(map));
+  });
+  buildUI(); { const q=new URLSearchParams(location.search).get('t'); const t=THEMES.find(x=>x.id===q)?q:'none'; setTheme(t); const r=document.querySelector(`input[value=${t}]`); if(r) r.checked=true; }
+  const zl=()=>{ const z=map.getZoom(); document.body.classList.toggle('zfar', z<10.8); };
+  map.on('zoom',zl); zl();
+  if (location.search.includes('debug')) setTimeout(()=>{ const d=document.createElement('pre'); d.id='dbg';
+    d.textContent=JSON.stringify(['tr_rail','tr_brt','tr_bus','tr_taxi','stops','news','th_murder'].map(l=>[l, map.querySourceFeatures(map.getLayer(l).source).length, map.queryRenderedFeatures({layers:[l]}).length])); document.body.appendChild(d); },8000);
+});
+
+let current='none';
+function setTheme(id){
+  current=id;
+  THEMES.filter(t=>t.src).forEach(t=>['th_','thl_','thh_'].forEach(p=>{ if(map.getLayer(p+t.id)) map.setLayoutProperty(p+t.id,'visibility',t.id===id?'visible':'none'); }));
+  const t=THEMES.find(x=>x.id===id), L=document.getElementById('legend');
+  if(!t.src){ L.hidden=true; return; }
+  const tf = t.tickfmt || (v=>v.toLocaleString('en-ZA'));
+  L.hidden=false;
+  L.innerHTML = `<div style="color:var(--fg);font-weight:500">${esc(t.label)} <span style="color:var(--dim);font-weight:400">· ${esc(t.unit)}</span></div>
+    <div class="ramp">${t.ramp.map(c=>`<span style="background:${c}"></span>`).join('')}</div>
+    <div class="ticks"><span></span>${t.breaks.map(b=>`<span>${tf(b)}</span>`).join('')}<span></span></div>
+    <div style="margin-top:6px">${esc(t.legend)}</div><div class="src">Source: ${esc(t.credit)}</div>`;
+}
+
+function buildUI(){
+  const th=document.getElementById('themes');
+  th.innerHTML = THEMES.map(t=>`<label class="opt"><input type="radio" name="theme" value="${t.id}" ${t.id==='none'?'checked':''}><span>${esc(t.label)}${t.note?`<small>${esc(t.note)}</small>`:''}</span></label>`).join('');
+  th.addEventListener('change',e=>setTheme(e.target.value));
+  const ov=document.getElementById('overlays');
+  ov.innerHTML = OVERLAYS.map(o=>`<label class="opt"><input type="checkbox" value="${o.id}" ${o.on?'checked':''}><span><span class="sw" style="background:${o.colour}"></span>${esc(o.label)}${o.note?`<small>${esc(o.note)}</small>`:''}</span></label>`).join('');
+  const setOv=(id,on)=>{ if(id==='labels'){ LABELS.forEach(m=>m.getElement().style.display=on?'':'none'); return; } map.getLayer(id)&&map.setLayoutProperty(id,'visibility',on?'visible':'none'); };
+  OVERLAYS.forEach(o=>setOv(o.id,!!o.on));
+  ov.addEventListener('change',e=>setOv(e.target.value,e.target.checked));
+  document.getElementById('foot').innerHTML = 'Data: Copernicus DEM GLO-30; SAPS crime statistics 2025/26; Stats SA Census 2011 and 2022; City of Cape Town open data; JRC GHSL; MyCiTi and Metrorail timetables; minibus-taxi corridors; news via public RSS and GDELT. Areas average very different neighbourhoods, so read every colour as a district average, not a street-level verdict.<br><br>The New Science of Maps';
+  const b3=document.getElementById('b3d'), bf=document.getElementById('bflat');
+  b3.onclick=()=>{map.setTerrain({source:'dem',exaggeration:1.5}); map.easeTo({pitch:55}); b3.setAttribute('aria-pressed','true'); bf.setAttribute('aria-pressed','false');};
+  bf.onclick=()=>{map.setTerrain(null); map.easeTo({pitch:0,bearing:0}); bf.setAttribute('aria-pressed','true'); b3.setAttribute('aria-pressed','false');};
+  document.getElementById('bhome').onclick=()=>map.flyTo({center:[18.52,-33.97],zoom:10.1,pitch:map.getTerrain()?50:0,bearing:map.getTerrain()?-18:0});
+  const P=document.getElementById('panel'), tg=document.getElementById('toggle');
+  tg.onclick=()=>{const c=P.classList.toggle('closed'); tg.setAttribute('aria-expanded',String(!c));};
+  if (matchMedia('(max-width:700px)').matches){ P.classList.add('closed'); tg.setAttribute('aria-expanded','false'); }
+}
+
+const popup = new maplibregl.Popup({closeButton:true, maxWidth:'320px'});
+function table(p, rows){ return '<table>'+Object.entries(rows).filter(([k])=>p[k]!=null&&p[k]!=='').map(([k,l])=>`<tr><td>${esc(l)}</td><td>${esc(fmt(p[k]))}</td></tr>`).join('')+'</table>'; }
+function safeUrl(u){ try{ const x=new URL(u); return /^https?:$/.test(x.protocol)?x.href:null; }catch(e){ return null; } }
+
+map.on('click', e => {
+  const pick = ['news','newsplaces','stops','police','tr_rail','tr_brt','tr_bus','tr_taxi'].filter(l=>map.getLayer(l)&&map.getLayoutProperty(l,'visibility')!=='none');
+  const f = map.queryRenderedFeatures(e.point,{layers:pick})[0];
+  let html='';
+  if (f){
+    const p=f.properties, L=f.layer.id;
+    if (L==='news'){
+      const u=safeUrl(p.url);
+      html = `<h3>${u?`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(p.title)}</a>`:esc(p.title)}</h3>
+        <div class="meta">${esc(p.outlet||'')}${p.date?' · '+esc(String(p.date).slice(0,10)):''}${p.place?' · '+esc(p.place):''}</div>
+        <div style="font-size:13px;line-height:1.45">${esc(p.summary||'')}</div>${p.topic?`<span class="tag">${esc(p.topic)}</span>`:''}
+        ${u?`<div style="margin-top:8px;font-size:12px"><a style="color:var(--accent2)" href="${esc(u)}" target="_blank" rel="noopener">${String(p.url_is_google_redirect)==='true'?'Read the article (opens via Google News) →':'Read the original article →'}</a></div>`:''}`;
+    } else if (L==='newsplaces'){
+      html = `<h3>${esc(p.place||p.name||p.suburb)}</h3>${table(p,{mentions:'Articles last month',mention_count:'Articles last month',dominant_topic:'Main topic'})}`;
+    } else if (L==='stops'){
+      html = `<h3>${esc(p.name)}</h3><div class="meta">${esc(p.operator)}</div>${table(p,{weekday_departures_display:'Service',routes:'Routes'})}`;
+    } else if (L==='police'){
+      html = `<h3>${esc(p.name)}</h3>`;
+    } else {
+      html = `<h3>${esc(p.route_name||p.route_ref||'Route')}</h3><div class="meta">${esc(p.operator)} · ${esc(p.route_type||p.mode)}</div>${p.weekday_trips>0?table(p,{weekday_trips:'Trips per weekday'}):''}`;
+    }
+  } else if (current!=='none'){
+    const t=THEMES.find(x=>x.id===current);
+    const g=map.queryRenderedFeatures(e.point,{layers:['th_'+t.id]})[0];
+    if (g){ const p=g.properties;
+      html = `<h3>${esc(t.popup.title(p)||t.label)}</h3>${table(p,t.popup.rows)}${t.popup.note&&p[t.popup.note]?`<div class="note">${esc(p[t.popup.note])}</div>`:''}`; }
+  }
+  if (html) popup.setLngLat(e.lngLat).setHTML('<div class="pp">'+html+'</div>').addTo(map);
+});
+['news','newsplaces','stops','police','tr_rail','tr_brt','tr_bus','tr_taxi'].forEach(l=>{
+  map.on('mouseenter',l,()=>map.getCanvas().style.cursor='pointer'); map.on('mouseleave',l,()=>map.getCanvas().style.cursor='');
+});
+</script>

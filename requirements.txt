@@ -1,0 +1,19 @@
+# Python 3.11+ (tested on 3.12). Versions are the ones the published data was built with.
+# rasterio, pyogrio (geopandas I/O) and pyproj ship binary wheels with GDAL/PROJ bundled for
+# macOS, Linux and Windows, so no system GDAL is needed with pip. If pip tries to compile them,
+# your Python is too new for the wheels: use 3.11-3.13, or conda-forge (see CONTRIBUTING.md).
+numpy==2.3.5
+pandas==3.0.0
+geopandas==1.1.2
+pyogrio==0.12.1
+shapely==2.1.2
+pyproj==3.7.2
+rasterio==1.5.0
+Pillow==12.1.0
+matplotlib==3.10.8
+contextily==1.6.2
+openpyxl==3.1.5
+scipy==1.17.0          # pandas .corr(method="spearman") in the crime checks
+requests==2.32.5
+# Not pip-installable: pdftotext from poppler (demography ward profiles, MyCiTi timetables).
+#   macOS: brew install poppler    Debian/Ubuntu: apt install poppler-utils    conda: conda install -c conda-forge poppler

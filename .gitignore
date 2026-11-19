@@ -1,0 +1,8 @@
+# raw downloads and intermediate files (some sources forbid redistribution)
+raw/
+*.part
+__pycache__/
+*.pyc
+.venv/
+venv/
+.DS_Store
